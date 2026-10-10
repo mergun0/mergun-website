@@ -42,18 +42,23 @@
 
 html {
   min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   overflow-x: hidden;
   background:
     radial-gradient(circle at top left, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 34rem),
     var(--bg);
   color: var(--text);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -211,11 +216,19 @@ img {
   box-shadow: var(--shadow);
 }
 
+.mobile-menu[open] nav {
+  animation: mobile-menu-in .16s ease both;
+}
+
 .mobile-menu nav a {
   padding: 12px;
   border-radius: 6px;
   color: var(--muted);
   font-weight: 700;
+}
+
+.mobile-language-row {
+  display: none;
 }
 
 .hero {
@@ -324,6 +337,234 @@ h3 {
   min-height: 520px;
   display: grid;
   place-items: center;
+}
+
+.app-showcase {
+  width: min(330px, 100%);
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.showcase-tabs {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px;
+  scrollbar-width: thin;
+}
+
+.showcase-tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--muted);
+  padding: 9px 13px;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  white-space: nowrap;
+}
+
+.showcase-tab:hover {
+  border-color: color-mix(in srgb, var(--showcase-accent) 44%, var(--border));
+  transform: translateY(-1px);
+}
+
+.showcase-tab[aria-selected="true"] {
+  border-color: color-mix(in srgb, var(--showcase-accent) 70%, var(--accent));
+  background: color-mix(in srgb, var(--showcase-accent) 16%, var(--surface));
+  color: var(--text);
+}
+
+.phone-frame.app-showcase-phone {
+  width: 100%;
+  overflow: hidden;
+}
+
+.showcase-screen {
+  position: absolute;
+  inset: 28px;
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  animation: showcase-in .22s ease both;
+}
+
+.showcase-app-head {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.showcase-app-head img {
+  border-radius: 16px;
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--showcase-accent) 24%, transparent);
+}
+
+.showcase-kicker {
+  margin: 0 0 4px;
+  color: var(--showcase-accent);
+  font-size: .68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.showcase-app-head h2 {
+  font-size: 1.28rem;
+  line-height: 1.05;
+}
+
+.showcase-description {
+  min-height: 82px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .94rem;
+  line-height: 1.55;
+}
+
+.showcase-preview {
+  display: grid;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--showcase-accent) 24%, var(--border));
+  border-radius: 18px;
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--showcase-accent) 12%, transparent), transparent 48%),
+    color-mix(in srgb, var(--surface) 78%, transparent);
+  padding: 18px;
+}
+
+.showcase-preview p,
+.showcase-preview span {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+.showcase-preview strong {
+  color: var(--text);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.showcase-preview div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 30px;
+}
+
+.showcase-preview em {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--showcase-accent) 14%, var(--surface));
+  color: var(--text);
+  padding: 7px 9px;
+  font-size: .75rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.showcase-preview button {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid color-mix(in srgb, var(--showcase-accent) 72%, var(--border));
+  border-radius: 10px;
+  background: var(--showcase-accent);
+  color: var(--showcase-dark);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-tab[aria-selected="true"] {
+  border-color: var(--showcase-accent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--showcase-accent) 18%, var(--surface)) 0%, color-mix(in srgb, var(--showcase-secondary) 16%, var(--surface)) 100%);
+  box-shadow: inset 0 -2px 0 var(--showcase-accent);
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .phone-frame.app-showcase-phone {
+  background:
+    radial-gradient(circle at 20% 14%, color-mix(in srgb, var(--showcase-accent) 24%, transparent), transparent 28%),
+    linear-gradient(155deg, color-mix(in srgb, var(--showcase-dark) 92%, var(--surface)), var(--showcase-dark));
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .phone-frame::before {
+  border-color: color-mix(in srgb, var(--showcase-secondary) 36%, transparent);
+  background: color-mix(in srgb, var(--showcase-dark) 92%, transparent);
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-screen {
+  color: #f8fafc;
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-app-head img {
+  background: #fff;
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--showcase-accent) 36%, transparent);
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-kicker {
+  color: var(--showcase-accent);
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-app-head h2,
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview strong {
+  color: #f8fafc;
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-description,
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview p,
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview span {
+  color: #cbd5e1;
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview {
+  border-color: color-mix(in srgb, var(--showcase-secondary) 42%, transparent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--showcase-accent) 18%, transparent) 0%, color-mix(in srgb, var(--showcase-secondary) 14%, transparent) 46%, transparent 72%),
+    color-mix(in srgb, var(--showcase-dark) 86%, #fff);
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview em {
+  border: 1px solid color-mix(in srgb, var(--showcase-secondary) 42%, transparent);
+  background: color-mix(in srgb, var(--showcase-secondary) 18%, var(--showcase-dark));
+  color: #f8fafc;
+}
+
+.app-showcase[data-active-app="sheet2contacts"] .showcase-preview button {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--showcase-accent) 0%, var(--showcase-secondary) 100%);
+  color: var(--showcase-dark);
+}
+
+@keyframes showcase-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .phone-frame {
@@ -467,6 +708,20 @@ h3 {
   padding: 24px;
 }
 
+.legal-block {
+  margin-top: 18px;
+}
+
+.legal-block h2 {
+  font-size: clamp(1.22rem, 2.4vw, 1.65rem);
+  line-height: 1.18;
+}
+
+.legal-block p {
+  color: var(--muted);
+  line-height: 1.68;
+}
+
 .app-card {
   display: flex;
   flex-direction: column;
@@ -483,6 +738,30 @@ h3 {
 .app-card-top {
   justify-content: space-between;
   margin-bottom: 22px;
+}
+
+.app-icon-shell {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.app-icon-shell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.app-icon-shell-large {
+  width: 76px;
+  height: 76px;
+  flex-basis: 76px;
+  border-radius: 18px;
 }
 
 .app-card p,
@@ -533,6 +812,7 @@ dd {
 
 .card-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: auto;
   padding-top: 22px;
@@ -556,7 +836,7 @@ dd {
 .legal-block ul {
   display: grid;
   gap: 12px;
-  margin: 18px 0 0;
+  margin: 16px 0 0;
   padding-left: 20px;
   color: var(--muted);
   line-height: 1.65;
@@ -564,6 +844,25 @@ dd {
 
 .spec-list {
   margin: 0;
+}
+
+.subheading {
+  margin-top: 24px;
+  font-size: 1.05rem;
+}
+
+.legal-link-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.support-options h2 {
+  margin-bottom: 18px;
+}
+
+.support-options .legal-link-grid {
+  margin-top: 18px;
 }
 
 .screenshot-grid {
@@ -653,6 +952,7 @@ dd {
   *::after {
     scroll-behavior: auto !important;
     transition: none !important;
+    animation: none !important;
   }
 }
 
@@ -667,11 +967,14 @@ dd {
 
   .language-switch {
     margin-left: 0;
+    order: 3;
   }
 
   .mobile-menu {
     display: block;
     margin-left: auto;
+    order: 2;
+    flex: 0 0 auto;
   }
 
   .header-inner {
@@ -692,6 +995,10 @@ dd {
     min-height: 440px;
     overflow: hidden;
     width: 100%;
+  }
+
+  .app-showcase {
+    width: min(330px, 100%);
   }
 
   .apps-grid,
@@ -722,7 +1029,10 @@ dd {
   }
 
   .header-inner {
+    position: relative;
     min-width: 0;
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px);
     gap: 8px;
   }
 
@@ -732,9 +1042,47 @@ dd {
     font-size: .78rem;
   }
 
+  .header-inner > .language-switch {
+    display: none;
+  }
+
+  .mobile-language-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+
+  .mobile-menu nav .mobile-language-row a {
+    text-align: center;
+    background: var(--surface-2);
+  }
+
+  .mobile-menu nav .mobile-language-row a.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
   .mobile-menu summary {
     width: 40px;
     height: 40px;
+  }
+
+  .mobile-menu {
+    margin-left: auto;
+    z-index: 40;
+  }
+
+  .mobile-menu nav {
+    position: fixed;
+    top: 64px;
+    right: 12px;
+    left: auto;
+    width: min(320px, calc(100vw - 24px));
+    min-width: 0;
+    max-width: calc(100vw - 24px);
+    z-index: 44;
   }
 
   .button,
@@ -743,7 +1091,8 @@ dd {
   }
 
   .lead {
-    max-width: calc(100vw - 36px);
+    max-width: min(100%, 31ch);
+    font-size: 1rem;
   }
 
   .app-card-top,
@@ -756,8 +1105,65 @@ dd {
     white-space: normal;
   }
 
+  .legal-block {
+    margin-top: 14px;
+    padding: 20px;
+  }
+
+  .legal-block h2 {
+    font-size: 1.16rem;
+  }
+
+  .support-options h2,
+  .support-options .legal-link-grid {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .support-options .legal-link-grid {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
   .phone-frame {
     width: min(252px, calc(100vw - 72px));
+  }
+
+  .showcase-tabs {
+    width: 100%;
+  }
+
+  .showcase-screen {
+    inset: 22px;
+    gap: 14px;
+  }
+
+  .showcase-app-head {
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .showcase-app-head img {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+  }
+
+  .showcase-app-head h2 {
+    font-size: 1.05rem;
+  }
+
+  .showcase-description {
+    min-height: 92px;
+    font-size: .84rem;
+  }
+
+  .showcase-preview {
+    padding: 14px;
+  }
+
+  .showcase-preview strong {
+    font-size: 1.1rem;
   }
 
   .floating-card {

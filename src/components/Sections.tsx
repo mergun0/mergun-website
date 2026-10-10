@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { apps, type AppInfo } from "@/data/apps";
 import { SITE_CONFIG, type Locale } from "@/config/site";
+import { AppShowcase } from "./AppShowcase";
 
 export function Hero({ locale }: { locale: Locale }) {
   const isTr = locale === "tr";
@@ -13,19 +14,11 @@ export function Hero({ locale }: { locale: Locale }) {
         <p className="lead">{SITE_CONFIG.description[locale]}</p>
         <div className="actions">
           <Link className="button primary" href={isTr ? "/uygulamalar" : "/en/apps"}>{isTr ? "Uygulamaları Keşfet" : "Explore Apps"}</Link>
-          <Link className="button secondary" href={isTr ? "/uygulamalar/zar-at" : "/en/apps/dice-roller"}>{isTr ? "Zar At’ı İncele" : "View Dice Roller"}</Link>
+          <Link className="button secondary" href={isTr ? "/uygulamalar/satir-arasi" : "/en/apps/satir-arasi"}>{isTr ? "Satır Arası’nı İncele" : "View Satır Arası"}</Link>
         </div>
       </div>
-      <div className="hero-visual" aria-hidden="true">
-        <div className="phone-frame">
-          <div className="app-orbit">
-            <span>3D</span>
-            <span>Offline</span>
-            <span>No ads</span>
-          </div>
-          <div className="dice-shape"><i></i><i></i><i></i><i></i></div>
-        </div>
-        <div className="floating-card quote-card">Satır Arası</div>
+      <div className="hero-visual">
+        <AppShowcase />
       </div>
     </section>
   );
@@ -36,7 +29,7 @@ export function AppCard({ app, locale }: { app: AppInfo; locale: Locale }) {
   return (
     <article className="app-card">
       <div className="app-card-top">
-        <Image src={app.icon} alt="" width={52} height={52} />
+        <span className="app-icon-shell"><Image src={app.icon} alt="" width={52} height={52} /></span>
         <span className={`status ${data.status}`}>{data.statusLabel}</span>
       </div>
       <h3>{data.name}</h3>
@@ -45,7 +38,7 @@ export function AppCard({ app, locale }: { app: AppInfo; locale: Locale }) {
         <div><dt>Platform</dt><dd>{app.platform}</dd></div>
       </dl>
       <div className="card-actions">
-        <Link className="text-link" href={data.detailPath}>{locale === "tr" ? (app.key === "dice" ? "Detayları Gör" : "Projeyi İncele") : (app.key === "dice" ? "View Details" : "View Project")}</Link>
+        <Link className="text-link" href={data.detailPath}>{locale === "tr" ? "Detayları Gör" : "View Details"}</Link>
         <Link className="text-link muted" href={data.privacyPath}>{locale === "tr" ? "Gizlilik" : "Privacy"}</Link>
       </div>
     </article>
@@ -64,7 +57,7 @@ export function Values({ locale }: { locale: Locale }) {
 }
 
 export function Screenshots({ locale }: { app: AppInfo; locale: Locale }) {
-  const label = locale === "tr" ? "Ekran görüntüsü yakında" : "Screenshot coming soon";
+  const label = locale === "tr" ? "Gerçek ekran görüntüsü bulunmuyor" : "No verified screenshot available";
   return (
     <div className="screenshot-grid">
       {[0, 1, 2].map((index) => (
@@ -76,10 +69,6 @@ export function Screenshots({ locale }: { app: AppInfo; locale: Locale }) {
   );
 }
 
-export function SupportEmail({ locale }: { locale: Locale }) {
-  if (!SITE_CONFIG.supportEmail) {
-    return <p className="notice">{locale === "tr" ? "Destek e-posta adresi yayın öncesinde eklenecektir." : "The support email address will be added before publication."}</p>;
-  }
+export function SupportEmail() {
   return <a className="button primary" href={`mailto:${SITE_CONFIG.supportEmail}`}>{SITE_CONFIG.supportEmail}</a>;
 }
-

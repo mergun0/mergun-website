@@ -37,6 +37,10 @@ export function Header({ locale, path }: { locale: Locale; path: string }) {
             {nav[locale].map(([label, href]) => (
               <Link key={href} href={href}>{label}</Link>
             ))}
+            <div className="mobile-language-row" aria-label={locale === "tr" ? "Dil seçimi" : "Language selection"}>
+              <Link className={locale === "tr" ? "active" : ""} href={localizedPath(path, "tr")} hrefLang="tr">TR</Link>
+              <Link className={locale === "en" ? "active" : ""} href={localizedPath(path, "en")} hrefLang="en">EN</Link>
+            </div>
           </nav>
         </details>
       </div>
@@ -45,7 +49,6 @@ export function Header({ locale, path }: { locale: Locale; path: string }) {
 }
 
 export function Footer({ locale }: { locale: Locale }) {
-  const year = new Date().getFullYear();
   const copy = locale === "tr" ? "Faydalı fikirleri sade dijital ürünlere dönüştüren bağımsız geliştirici markası." : "An independent developer brand turning useful ideas into simple digital products.";
   return (
     <footer className="site-footer">
@@ -59,10 +62,9 @@ export function Footer({ locale }: { locale: Locale }) {
           <Link href={locale === "en" ? "/en/privacy" : "/gizlilik"}>{locale === "tr" ? "Gizlilik" : "Privacy"}</Link>
           {locale === "tr" ? <Link href="/kvkk">KVKK</Link> : null}
           <Link href={locale === "en" ? "/en/support" : "/destek"}>{locale === "tr" ? "Destek" : "Support"}</Link>
-          <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
-      <div className="shell copyright">© {year} Mergun. {locale === "tr" ? "Tüm hakları saklıdır." : "All rights reserved."}</div>
+      <div className="shell copyright">© {SITE_CONFIG.copyrightYear} Mergun. {locale === "tr" ? "Tüm hakları saklıdır." : "All rights reserved."}</div>
     </footer>
   );
 }

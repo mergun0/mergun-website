@@ -57,11 +57,11 @@ Uygulama gizlilik sayfaları rota/veri yapısına bağlıdır. Yeni bir uygulama
 
 ## Domain ve SEO
 
-Gerçek domain belli olduğunda `src/config/site.ts` içindeki `siteUrl` alanını güncelleyin. Bu alan boş bırakıldığında sahte canonical veya sosyal görsel URL'si yayınlanmaz. Sitemap üretimi için geçici `.invalid` alan adı yalnızca yayın öncesi değiştirilmesi gereken teknik işaret olarak kullanılır.
+Gerçek domain `https://mergun.com.tr` olarak yapılandırılmıştır. Farklı bir alan adı kullanılacaksa `NEXT_PUBLIC_SITE_URL` veya `src/config/site.ts` içindeki `siteUrl` alanı güncellenmelidir.
 
 ## Deployment
 
-Önerilen platform: Vercel. Next.js App Router ve statik export desteği nedeniyle kurulum sade kalır. Cloudflare Pages ve Netlify de statik çıktı ile uygundur.
+Önerilen platform: cPanel `public_html` veya Vercel. Bu proje statik export üretir; `npm run build` sonrasında `out/` klasörünün içeriği cPanel `public_html` içine yüklenebilir.
 
 Vercel için:
 
@@ -69,15 +69,14 @@ Vercel için:
 2. Bu projeyi depoya push edin.
 3. Vercel'de depoyu içe aktarın.
 4. Build komutu `npm run build`, çıktı klasörü `out` olacak şekilde ayarlayın.
-5. Gerçek domain bağlandıktan sonra `siteUrl` alanını güncelleyin.
 
 ## Yayın Öncesi Değiştirilecekler
 
-- Gerçek domain ve `siteUrl`
 - Gerçek destek e-postası
 - Zar At Play Store URL'si
+- Satır Arası Play Store URL'si
+- Sheet2Contacts Play Store URL'si
 - Gerçek uygulama ekran görüntüleri
 - Hukuki metinlerin son kontrolü
 - Favicon ve sosyal paylaşım önizlemeleri
 - Analytics kullanılacaksa gizlilik politikası ve çerez yaklaşımı
-
