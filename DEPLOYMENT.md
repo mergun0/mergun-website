@@ -4,7 +4,7 @@ Bu proje statik yayınlamaya uygundur. Backend, veri tabanı veya çalışma zam
 
 ## Önerilen Platform
 
-Vercel önerilir. Alternatif olarak Cloudflare Pages veya Netlify üzerinde `out/` klasörü yayınlanabilir.
+cPanel `public_html` bu sürüm için uygundur. Alternatif olarak Vercel, Cloudflare Pages veya Netlify üzerinde `out/` klasörü yayınlanabilir.
 
 ## Build
 
@@ -15,14 +15,19 @@ npm run typecheck
 npm run build
 ```
 
+## cPanel
+
+1. Yerelde `npm run build` çalıştırın.
+2. `out/` klasörünün içeriğini cPanel içindeki ilgili domainin `public_html` klasörüne yükleyin.
+3. `.htaccess` dosyasının da yüklendiğini doğrulayın.
+4. cPanel, DNS ve SSL ayarlarını hosting panelinden ayrıca tamamlayın.
+
 ## Vercel
 
 - Framework: Next.js
 - Build command: `npm run build`
 - Output directory: `out`
-- Environment variable zorunlu değildir.
-
-Gerçek domain bağlandıktan sonra `src/config/site.ts` içindeki `siteUrl` alanı doldurulmalıdır.
+- `NEXT_PUBLIC_SITE_URL=https://mergun.com.tr` kullanılabilir.
 
 ## Cloudflare Pages
 
@@ -38,4 +43,3 @@ Gerçek domain bağlandıktan sonra `src/config/site.ts` içindeki `siteUrl` ala
 ## GitHub Pages
 
 Statik export çıktısı kullanılabilir. Alt yol altında yayınlanacaksa Next.js `basePath` ve bağlantılar ayrıca değerlendirilmelidir.
-

@@ -1,0 +1,31 @@
+DirectoryIndex index.html
+
+Options -Indexes
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Legacy Excel Rehber Aktarıcı URLs now resolve to the Sheet2Contacts canonical pages.
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/?$ /uygulamalar/sheet2contacts/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/gizlilik/?$ /uygulamalar/sheet2contacts/gizlilik/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/kvkk/?$ /uygulamalar/sheet2contacts/kvkk/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/kullanim-kosullari/?$ /uygulamalar/sheet2contacts/kullanim-kosullari/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/destek/?$ /uygulamalar/sheet2contacts/destek/ [R=301,L]
+  RewriteRule ^excel-rehber-aktarici/destek/?$ /uygulamalar/sheet2contacts/destek/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/hesap-silme/?$ /uygulamalar/sheet2contacts/gizlilik/ [R=301,L]
+  RewriteRule ^uygulamalar/excel-rehber-aktarici/topluluk-kurallari/?$ /uygulamalar/sheet2contacts/kullanim-kosullari/ [R=301,L]
+
+  # Next static export may request this RSC payload with a dotted filename.
+  # The exported file exists in the matching directory form.
+  RewriteRule ^(.*/)?__next\.\$oc\$slug\.__PAGE__\.txt$ $1__next.\$oc\$slug/__PAGE__.txt [L]
+</IfModule>

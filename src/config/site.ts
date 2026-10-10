@@ -10,10 +10,11 @@ export const SITE_CONFIG = {
     en: "Mergun creates simple, useful and thoughtfully built digital products.",
   },
   githubUrl: "https://github.com/mergun0",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "",
-  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "",
-  supportEmailPlaceholder: "support@mergun.example",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mergun.com.tr",
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "destek@mergun.com.tr",
+  privacyEmail: process.env.NEXT_PUBLIC_PRIVACY_EMAIL ?? "gizlilik@mergun.com.tr",
   defaultLocale: "tr",
+  copyrightYear: 2026,
 } as const;
 
 export type Locale = "tr" | "en";
